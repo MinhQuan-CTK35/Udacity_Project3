@@ -1,8 +1,5 @@
 version: 0.2
-env:
-  variables:
-    IMAGE_REPO_NAME: coworking-space-microservice
-    IMAGE_TAG: latest
+
 phases:
   pre_build:
     commands:
@@ -12,7 +9,7 @@ phases:
     commands:
       - echo Starting build at `date`
       - echo Building the Docker image...
-      - docker build --build-arg DB_USERNAME=postgres --build-arg DB_PASSWORD=p0PE4D1ZwR -t $IMAGE_REPO_NAME:$IMAGE_TAG ./app/.
+      - docker build -t $IMAGE_REPO_NAME:$IMAGE_TAG .
       - docker tag $IMAGE_REPO_NAME:$IMAGE_TAG $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG
   post_build:
     commands:
