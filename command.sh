@@ -5,26 +5,26 @@ helm repo add udacity-pr3 https://charts.bitnami.com/bitnami
 helm install udacity-postgre udacity-pr3/postgresql
 
 # The password can be retrieved with the following command:
-export POSTGRES_PASSWORD=$(kubectl get secret --namespace default udacity-postgre-postgresql -o jsonpath="{.data.postgres-password}" | base64 -d)
+export POSTGRES_PASSWORD=$(kubectl get secret --namespace default udacity-postgresql -o jsonpath="{.data.postgres-password}" | base64 -d)
 echo $POSTGRES_PASSWORD
 
 # To connect to your database run the following command:
-kubectl run udacity-postgre-postgresql-client --rm --tty -i --restart='Never' --namespace default --image docker.io/bitnami/postgresql:16.1.0-debian-11-r0 --env="PGPASSWORD=p0PE4D1ZwR" --command -- psql --host udacity-postgre-postgresql -U postgres -d postgres -p 5432
+kubectl run udacity-postgresql-client --rm --tty -i --restart='Never' --namespace default --image docker.io/bitnami/postgresql:16.1.0-debian-11-r0 --env="PGPASSWORD=EsaZY6hJJo" --command -- psql --host udacity-postgresql -U postgres -d postgres -p 5432
 
 # Connecting Via Port Forwarding
-kubectl port-forward --namespace default svc/udacity-postgresql 5432:5432 & PGPASSWORD=p0PE4D1ZwR psql --host 127.0.0.1 -U postgres -d postgres -p 5432
+kubectl port-forward --namespace default svc/udacity-postgresql 5432:5432 & PGPASSWORD=EsaZY6hJJo psql --host 127.0.0.1 -U postgres -d postgres -p 5432
 
 # Connecting Via a Pod
-kubectl exec -it udacity-postgre-postgresql-0 bash 
-PGPASSWORD="p0PE4D1ZwR" psql postgres://postgres@udacity-postgresql:5432/postgres -c \l
+kubectl exec -it udacity-postgresql-0 bash 
+PGPASSWORD="EsaZY6hJJo" psql postgres://postgres@udacity-postgresql:5432/postgres -c \l
 
 kubectl port-forward svc/udacity-postgresql 5432:5432
 
-kubectl port-forward --namespace default svc/udacity-postgresql 5432:5432 & PGPASSWORD=p0PE4D1ZwR psql --host 127.0.0.1 -U postgres -d postgres -p 5432 < ./db/1_create_tables.sql
-kubectl port-forward --namespace default svc/udacity-postgresql 5432:5432 & PGPASSWORD=p0PE4D1ZwR psql --host 127.0.0.1 -U postgres -d postgres -p 5432 < ./db/2_seed_users.sql
-kubectl port-forward --namespace default svc/udacity-postgresql 5432:5432 & PGPASSWORD=p0PE4D1ZwR psql --host 127.0.0.1 -U postgres -d postgres -p 5432 < ./db/3_seed_tokens.sql
+kubectl port-forward --namespace default svc/udacity-postgresql 5432:5432 & PGPASSWORD=EsaZY6hJJo psql --host 127.0.0.1 -U postgres -d postgres -p 5432 < ./db/1_create_tables.sql
+kubectl port-forward --namespace default svc/udacity-postgresql 5432:5432 & PGPASSWORD=EsaZY6hJJo psql --host 127.0.0.1 -U postgres -d postgres -p 5432 < ./db/2_seed_users.sql
+kubectl port-forward --namespace default svc/udacity-postgresql 5432:5432 & PGPASSWORD=EsaZY6hJJo psql --host 127.0.0.1 -U postgres -d postgres -p 5432 < ./db/3_seed_tokens.sql
 
-DB_USERNAME=postgres DB_PASSWORD=p0PE4D1ZwR python app.py
+DB_USERNAME=postgres DB_PASSWORD=EsaZY6hJJo python app.py
 
 # Expose the Backend API to the Internet
 kubectl expose deployment backend-coworking-space --type=LoadBalancer --name=publicbackend
