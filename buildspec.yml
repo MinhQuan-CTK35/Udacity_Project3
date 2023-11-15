@@ -2,7 +2,7 @@ version: 0.2
 env:
   variables:
     IMAGE_REPO_NAME: coworking-space-microservice
-    CODE_BUILD_NUMBER: 5
+    CODE_BUILD_NUMBER: 7
 phases:
   pre_build:
     commands:
